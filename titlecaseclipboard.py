@@ -13,7 +13,7 @@ Usage:
 import sys
 import pyperclip
 from titlecase import titlecase
-
+import re
 
 # -------------------------------------------------------------------
 def main():
@@ -33,7 +33,9 @@ def main():
         inputtext = ' '.join(argv)
         inputtext = inputtext.strip()
 
-    outputtext = titlecase(inputtext)
+    outputtext = titlecase(inputtext.casefold())
+    outputtext = re.sub(r'\n', ' ', outputtext)
+    outputtext = re.sub(r' {2,}', ' ', outputtext)
 
     if clipboard:
         pyperclip.copy(outputtext)
